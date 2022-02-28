@@ -1,0 +1,58 @@
+import java.util.LinkedHashSet;
+import java.io.FileWriter;
+%%
+
+%public
+%class GenerarClase
+%standalone
+%unicode
+%{
+  public int cont;
+  public LinkedHashSet<String> lista = new LinkedHashSet<String>();
+  public String cadena = "";
+%}
+
+%init{
+	
+%init}
+
+%eof{
+	String[] listaString = lista.toArray(new String[lista.size()]);
+	//for(int i=0;i<lista.size();i++){
+	//	System.out.println(listaString[i]);
+	//}
+	try{
+		FileWriter fichero = new FileWriter("src/RegistroAE.java");
+	
+		fichero.write("public class RegistroAE{\n\n");
+		for(int i=0;i<listaString.length;i++){
+			fichero.write("\tprivate String "+listaString[i]+" = \"\";\n");
+		}
+		fichero.write("\n");
+		for(int i=0;i<listaString.length;i++){
+			fichero.write("\tpublic String get"+listaString[i]+"(){\n\t\treturn("+listaString[i]+");\n\t}\n");
+			fichero.write("\tpublic void set"+listaString[i]+"(String c){\n\t\t"+listaString[i]+" = c;\n\t}\n");
+		}
+		fichero.write("\tpublic String toString(){\n");
+		for(int i=0;i<listaString.length;i++){
+			if(i == listaString.length - 1){
+				cadena = cadena + "\"\\n" + listaString[i] + ": \" " + " + get" + listaString[i] + "();";
+				continue;
+			}
+			cadena = cadena + "\"\\n" + listaString[i] + ": \" " + " + get" + listaString[i] + "() + ";
+		}
+		fichero.write("\t\treturn "+ cadena+"\n\t}\n");
+			
+		fichero.write("}");
+		fichero.close();
+	}catch(Exception e){
+		System.out.println(e);
+	}
+%eof}
+
+
+%%
+[a-zA-Zαινσϊ ]*.[:] { cont++; 
+	lista.add(yytext().replace(" ","_").replace(":","").replace("α","a").replace("ι","e").replace("ν","i").replace("σ","o").replace("ϊ","u"));
+}
+. {}

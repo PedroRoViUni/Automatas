@@ -1,0 +1,19 @@
+public class RegistroAe{
+	private String AE = "";
+	private String Nombre_latino = "";
+	private String Familia = "";
+	private String Procedencia = "";
+	private String Extracción = "";
+	private String Descripción_olfativa = "";
+	private String Apariencia = "";
+	private String Nota_de_Perfume = "";
+	private String Perfume = "";
+	private String Soluble_en = "";
+	private String Indisoluble_en = "";
+	private String Descripción = "";
+	private String Usos_generales = "";
+	private String Propiedades = "";
+	private String Beneficios_Aromaterapeúticos = "";
+	private String Sinergia = "";
+	private String Precauciones = "";
+	private String Contraindicaciones = "";
