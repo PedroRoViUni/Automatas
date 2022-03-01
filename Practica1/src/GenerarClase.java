@@ -548,7 +548,7 @@ public class GenerarClase {
 			fichero.write("\tpublic String get"+listaString[i]+"(){\n\t\treturn("+listaString[i]+");\n\t}\n");
 			fichero.write("\tpublic void set"+listaString[i]+"(String c){\n\t\t"+listaString[i]+" = c;\n\t}\n");
 		}
-		fichero.write("\tpublic String toString(){\n");
+		fichero.write("\t@Override\n\tpublic String toString(){\n");
 		for(int i=0;i<listaString.length;i++){
 			if(i == listaString.length - 1){
 				cadena = cadena + "\"\\n" + listaString[i] + ": \" " + " + get" + listaString[i] + "();";

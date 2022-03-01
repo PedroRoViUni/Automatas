@@ -134,6 +134,7 @@ public class RegistroAE{
 	public void setUso(String c){
 		Uso = c;
 	}
+	@Override
 	public String toString(){
 		return "\nAE: "  + getAE() + "\nNombre_latino: "  + getNombre_latino() + "\nFamilia: "  + getFamilia() + "\nProcedencia: "  + getProcedencia() + "\nExtraccion: "  + getExtraccion() + "\nDescripcion_olfativa: "  + getDescripcion_olfativa() + "\nApariencia: "  + getApariencia() + "\nNota_de_Perfume: "  + getNota_de_Perfume() + "\nPerfume: "  + getPerfume() + "\nSoluble_en: "  + getSoluble_en() + "\nIndisoluble_en: "  + getIndisoluble_en() + "\nDescripcion: "  + getDescripcion() + "\nUsos_generales: "  + getUsos_generales() + "\nPropiedades: "  + getPropiedades() + "\nBeneficios_Aromaterapeuticos: "  + getBeneficios_Aromaterapeuticos() + "\nSinergia: "  + getSinergia() + "\nPrecauciones: "  + getPrecauciones() + "\nContraindicaciones: "  + getContraindicaciones() + "\nUso: "  + getUso();
 	}
