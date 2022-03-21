@@ -7,7 +7,6 @@ import java.io.FileWriter;
 %standalone
 %unicode
 %{
-  public int cont;
   public LinkedHashSet<String> lista = new LinkedHashSet<String>();
   public String cadena = "";
 %}
@@ -52,7 +51,7 @@ import java.io.FileWriter;
 
 
 %%
-[a-zA-Zαινσϊ ]*.[:] { cont++; 
+[a-zA-Zαινσϊ ]*[:] { 
 	lista.add(yytext().replace(" ","_").replace(":","").replace("α","a").replace("ι","e").replace("ν","i").replace("σ","o").replace("ϊ","u"));
 }
 . {}
