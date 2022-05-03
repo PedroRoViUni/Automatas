@@ -11,15 +11,8 @@ import java.io.FileWriter;
   public String cadena = "";
 %}
 
-%init{
-	
-%init}
-
 %eof{
 	String[] listaString = lista.toArray(new String[lista.size()]);
-	//for(int i=0;i<lista.size();i++){
-	//	System.out.println(listaString[i]);
-	//}
 	try{
 		FileWriter fichero = new FileWriter("src/RegistroAE.java");
 	

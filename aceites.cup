@@ -1,0 +1,83 @@
+import java.util.LinkedHashSet;
+import java.util.Scanner;
+import java_cup.runtime.*;
+import java.io.*;
+
+parser code {:
+	
+	public static RegistroAE nuevoAceite = new RegistroAE();
+	public static LinkedHashSet<RegistroAE> lista = new LinkedHashSet<RegistroAE>();
+
+
+	public static void main(String args[]) throws Exception {
+
+ 		FileInputStream stream = new java.io.FileInputStream(args[0]);
+       		Reader reader = new java.io.InputStreamReader(stream);
+
+		try{
+			new parser(new AE(reader)).parse();
+		}
+		catch ( Exception e) {
+			System.out.println("Analisis INCORRECTO !!");
+			System.exit(1);
+		}
+		System.out.println("Analisis Correcto ");
+		RegistroAE[] listaAceites = lista.toArray(new RegistroAE[lista.size()]);
+		boolean repetir = true;
+		Scanner teclado = new Scanner(System.in);
+		while(repetir == true){
+			for(int i = 0; i<lista.size(); i++){
+				System.out.println((i+1)+". "+listaAceites[i].getAE());
+			}
+			int n_introducido = -1;
+			while(n_introducido < 0 || n_introducido > lista.size()){
+				System.out.println("Introduzca el nº del aceite a consultar ( o 0 para salir): ");
+				n_introducido = teclado.nextInt();
+			}
+			if(n_introducido == 0){
+				System.exit(0);
+			}
+			System.out.println(listaAceites[n_introducido-1].toString());
+			System.out.println("\n##############\n¿Desea consultar otro aceite? (S/N)");
+			String nuevaLectura = teclado.next();
+			if(nuevaLectura.equals("N") || nuevaLectura.equals("n")){
+				repetir = false;
+			}
+		}
+		teclado.close();
+	}
+:}
+
+terminal AE, NOMBRE_LATINO, FAMILIA, PROCEDENCIA, EXTRACCION, DESCRIPCION_OLFATIVA;
+terminal APARIENCIA, NOTA_DE_PERFUME, PERFUME, SOLUBLE_EN, INDISOLUBLE_EN, DESCRIPCION;
+terminal USOS_GENERALES, PROPIEDADES, BENEFICIOS_AROMATERAPEUTICOS, SINERGIA, PRECAUCIONES;
+terminal CONTRAINDICACIONES, USO;
+terminal DATOS, DATOS_QUE_NO_SE_USA;
+
+non terminal lista;
+non terminal aceite;
+non terminal caracteristicas;
+
+
+lista ::= aceite lista | aceite;
+aceite ::= AE:a DATOS:b caracteristicas {:nuevoAceite.setAE(b.toString()); lista.add(nuevoAceite); nuevoAceite = new RegistroAE();:};
+caracteristicas ::= NOMBRE_LATINO DATOS:b caracteristicas {:nuevoAceite.setNombre_latino(b.toString());:}
+| FAMILIA DATOS:b caracteristicas {:nuevoAceite.setFamilia(b.toString());:}
+| PROCEDENCIA DATOS:b caracteristicas {:nuevoAceite.setProcedencia(b.toString());:}
+| EXTRACCION DATOS:b caracteristicas {:nuevoAceite.setExtraccion(b.toString());:}
+| DESCRIPCION_OLFATIVA DATOS:b caracteristicas {:nuevoAceite.setDescripcion_olfativa(b.toString());:}
+| APARIENCIA DATOS:b caracteristicas {:nuevoAceite.setApariencia(b.toString());:}
+| NOTA_DE_PERFUME DATOS:b caracteristicas {:nuevoAceite.setNota_de_Perfume(b.toString());:}
+| PERFUME DATOS:b caracteristicas {:nuevoAceite.setPerfume(b.toString());:}
+| SOLUBLE_EN DATOS:b caracteristicas {:nuevoAceite.setSoluble_en(b.toString());:}
+| INDISOLUBLE_EN DATOS:b caracteristicas {:nuevoAceite.setIndisoluble_en(b.toString());:}
+| DESCRIPCION DATOS:b caracteristicas {:nuevoAceite.setDescripcion(b.toString());:}
+| USOS_GENERALES DATOS:b caracteristicas {:nuevoAceite.setUsos_generales(b.toString());:}
+| PROPIEDADES DATOS:b caracteristicas {:nuevoAceite.setPropiedades(b.toString());:}
+| BENEFICIOS_AROMATERAPEUTICOS DATOS:b caracteristicas {:nuevoAceite.setBeneficios_Aromaterapeuticos(b.toString());:}
+| SINERGIA DATOS:b caracteristicas {:nuevoAceite.setSinergia(b.toString());:}
+| PRECAUCIONES DATOS:b caracteristicas {:nuevoAceite.setPrecauciones(b.toString());:}
+| CONTRAINDICACIONES DATOS:b caracteristicas {:nuevoAceite.setContraindicaciones(b.toString());:}
+| USO DATOS:b caracteristicas {:nuevoAceite.setUso(b.toString());:}
+| DATOS_QUE_NO_SE_USA caracteristicas
+|;

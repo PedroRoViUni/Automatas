@@ -19,7 +19,7 @@ public class RegistroAE{
 	private String Precauciones = "";
 	private String Contraindicaciones = "";
 	private String Uso = "";
-
+	
 	public String getAE(){
 		return(AE);
 	}
